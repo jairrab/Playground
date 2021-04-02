@@ -3,24 +3,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/home_view">
+    app:startDestination="@id/state_flow_test">
 
     <fragment
-        android:id="@+id/home_view"
+        android:id="@+id/state_flow_test"
+        android:name="com.example.temp.fragments.stateflow.StateFlowTest"
+        android:label="StateFlowTest"
+        tools:layout="@layout/safe_args_sender" />
+
+    <fragment
+        android:id="@+id/safe_args_sender"
         android:name="com.example.temp.fragments.safeargs.SafeArgsSender"
-        tools:layout="@layout/safe_args_sender"
-        android:label="HomeView" >
+        android:label="HomeView"
+        tools:layout="@layout/safe_args_sender">
         <action
             android:id="@+id/action_home_view_to_other"
-            app:destination="@id/other" >
-        </action>
+            app:destination="@id/safe_args_receiver" />
     </fragment>
 
     <fragment
-        android:id="@+id/other"
+        android:id="@+id/safe_args_receiver"
         android:name="com.example.temp.fragments.safeargs.SafeArgsReceiver"
-        tools:layout="@layout/safe_args_receiver"
-        android:label="OtherView" >
+        android:label="OtherView"
+        tools:layout="@layout/safe_args_receiver">
         <argument
             android:name="data_1"
             android:defaultValue="Tree"
@@ -30,9 +35,9 @@
             app:argType="integer" />
         <argument
             android:name="parcel_1"
-            app:argType="com.example.temp.data.ParcelData1"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:defaultValue="@null"
+            app:argType="com.example.temp.fragments.safeargs.data.ParcelData1"
+            app:nullable="true" />
     </fragment>
 
 </navigation>

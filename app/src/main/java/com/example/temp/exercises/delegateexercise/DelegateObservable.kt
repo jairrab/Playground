@@ -1,4 +1,4 @@
-package com.example.temp.delegateexercise
+package com.example.temp.exercises.delegateexercise
 
 import kotlin.properties.Delegates
 

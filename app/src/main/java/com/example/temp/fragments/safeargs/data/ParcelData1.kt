@@ -1,4 +1,4 @@
-package com.example.temp.data
+package com.example.temp.fragments.safeargs.data
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
