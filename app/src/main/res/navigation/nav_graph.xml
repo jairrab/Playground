@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/home_view">
+
+    <fragment
+        android:id="@+id/home_view"
+        android:name="com.example.temp.fragments.safeargs.SafeArgsSender"
+        tools:layout="@layout/safe_args_sender"
+        android:label="HomeView" >
+        <action
+            android:id="@+id/action_home_view_to_other"
+            app:destination="@id/other" >
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/other"
+        android:name="com.example.temp.fragments.safeargs.SafeArgsReceiver"
+        tools:layout="@layout/safe_args_receiver"
+        android:label="OtherView" >
+        <argument
+            android:name="data_1"
+            android:defaultValue="Tree"
+            app:argType="string" />
+        <argument
+            android:name="data_2"
+            app:argType="integer" />
+        <argument
+            android:name="parcel_1"
+            app:argType="com.example.temp.data.ParcelData1"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+</navigation>
