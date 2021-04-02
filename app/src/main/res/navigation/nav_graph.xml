@@ -3,13 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/state_flow_test">
+    app:startDestination="@id/state_flow_launcher">
+
+    <fragment
+        android:id="@+id/state_flow_launcher"
+        android:name="com.example.temp.fragments.stateflow.StateFlowLauncher"
+        android:label="StateFlowLauncher"
+        tools:layout="@layout/state_flow_launcher" />
 
     <fragment
         android:id="@+id/state_flow_test"
         android:name="com.example.temp.fragments.stateflow.StateFlowTest"
         android:label="StateFlowTest"
-        tools:layout="@layout/safe_args_sender" />
+        tools:layout="@layout/state_flow_test" />
 
     <fragment
         android:id="@+id/safe_args_sender"
@@ -35,9 +41,9 @@
             app:argType="integer" />
         <argument
             android:name="parcel_1"
-            android:defaultValue="@null"
-            app:argType="com.example.temp.fragments.safeargs.data.ParcelData1"
-            app:nullable="true" />
+            app:argType="com.example.temp.fragments.safeargs.ParcelData1"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 </navigation>
