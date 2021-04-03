@@ -36,6 +36,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
     buildFeatures {
         viewBinding true
         // Enables Jetpack Compose for this module
@@ -43,7 +44,14 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.0.0-beta01'
+        kotlinCompilerVersion "1.4.31"
+        kotlinCompilerExtensionVersion '1.0.0-beta03'
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
@@ -59,7 +67,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    implementation project(':androidUtilities')
+    //implementation project(':androidUtilities')
+    implementation "com.github.jairrab:androidUtilities:2.6.0"
+
     implementation 'com.github.jairrab:viewBindingUtility:1.0.1'
 
     implementation "com.jakewharton.timber:timber:4.7.1"
@@ -85,4 +95,6 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha03'
     // Integration with observables
     implementation 'androidx.compose.runtime:runtime-livedata:1.0.0-beta03'
+
+    implementation "androidx.compose.compiler:compiler:1.0.0-beta03"
 }
