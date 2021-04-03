@@ -3,10 +3,7 @@ package com.example.temp.fragments.stateflow
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import com.example.temp.R
 import com.example.temp.base.BaseFragment
@@ -40,7 +37,7 @@ class StateFlowTest : BaseFragment(R.layout.state_flow_test) {
         super.onViewCreated(view, savedInstanceState)
 
         lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect { state ->
+            viewModel.stateFlow.collect { state ->
                 when (state) {
                     is LatestNewsUiState.Error -> Timber.e(state.exception)
                     is LatestNewsUiState.Success -> {
@@ -50,9 +47,9 @@ class StateFlowTest : BaseFragment(R.layout.state_flow_test) {
             }
         }
 
-        viewModel.liveDataState.observe(viewLifecycleOwner) {
+        viewModel.liveData.observe(viewLifecycleOwner, Observer {
             Timber.v("UI  LiveData: ${it.news}")
-        }
+        })
 
         binding.test.setOnClickListener {
             findNavController().navigate(R.id.safe_args_sender)
@@ -64,37 +61,48 @@ class StateFlowTest : BaseFragment(R.layout.state_flow_test) {
 class StateFlowTestViewModel(
     savedStateHandle: SavedStateHandle
 ) : BaseViewModel(savedStateHandle) {
-    // Backing property to avoid state updates from other classes
-    private val _uiState = MutableStateFlow(LatestNewsUiState.Success(""))
+    private val _stateFlow = MutableStateFlow(LatestNewsUiState.Success(""))
+    val stateFlow: StateFlow<LatestNewsUiState> = _stateFlow
 
-    // The UI collects from this StateFlow to get its state updates
-    val uiState: StateFlow<LatestNewsUiState> = _uiState
-
-    val liveDataState = MutableLiveData(LatestNewsUiState.Success(""))
+    val liveData get() = Transformations.map(NewsRepository().newsLiveData()){
+        LatestNewsUiState.Success(it)
+    }
 
     init {
         viewModelScope.launch {
-            NewsRepository().favoriteLatestNews()
+            NewsRepository().newsFlowState()
                 // Update View with the latest favorite news
                 // Writes to the value property of MutableStateFlow,
                 // adding a new element to the flow and updating all
                 // of its collectors
                 .collect { favoriteNews ->
-                    Timber.v("ViewModel: $favoriteNews")
-                    _uiState.value = LatestNewsUiState.Success(favoriteNews)
-                    liveDataState.value = LatestNewsUiState.Success(favoriteNews)
+                    _stateFlow.value = LatestNewsUiState.Success(favoriteNews)
                 }
         }
     }
 }
 
 class NewsRepository() {
-    fun favoriteLatestNews(): Flow<String> {
+    fun newsFlowState(): Flow<String> {
         return flow {
             var counter = 0
             while (true) {
                 val value = counter.toString()
                 emit(value)
+                Timber.v("Emitting StateFlow $value")
+                counter += 1
+                delay(1000)
+            }
+        }
+    }
+
+    fun newsLiveData(): LiveData<String> {
+        return liveData {
+            var counter = 0
+            while (true) {
+                val value = counter.toString()
+                emit(value)
+                Timber.v("Emitting  LiveData $value")
                 counter += 1
                 delay(1000)
             }
