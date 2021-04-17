@@ -3,3 +3,4 @@ rootProject.name = "Temp"
 
 include ':androidUtilities'
 project(':androidUtilities').projectDir = new File(settingsDir, '../androidUtilities/androidUtilities/')
+include ':KotlinLibPlayground'

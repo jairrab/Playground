@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$/../AndroidUtilities/androidutilities" />
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/KotlinLibPlayground" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
