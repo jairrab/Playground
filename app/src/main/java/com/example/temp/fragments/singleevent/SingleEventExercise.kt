@@ -76,6 +76,18 @@ class SingleEventExercise : BaseFragment(R.layout.patterns_exercise) {
         }*/
 
         viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.sharedFlow.collect {
+                Timber.v("Event observed sharedFlow1 = $it")
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.sharedFlow.collect {
+                Timber.v("Event observed sharedFlow2 = $it")
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
             viewModel.channelFlow.collect {
                 Timber.v("Event observed channelFlow1 = $it")
             }
@@ -104,6 +116,9 @@ class MyViewModel @Inject constructor(
     private val _stateFlow = MutableStateFlow("")
     val stateFlow: StateFlow<String> get() = _stateFlow
 
+    private val _sharedFlow = MutableSharedFlow<String>(0)
+    val sharedFlow: SharedFlow<String> get() = _sharedFlow
+
     private val _liveEvent = LiveEvent<String>()
     val liveEvent: LiveData<String> get() = _liveEvent
 
@@ -129,14 +144,11 @@ class MyViewModel @Inject constructor(
     fun test() {
         num++
         _stateFlow.value = "Hello number $num"
+        viewModelScope.launch { _sharedFlow.emit("Hello number $num") }
         _liveEvent.value = "Hello number $num"
         _eventLd.value = Event("Hello number $num")
-        viewModelScope.launch {
-            broadcastChannel.send("Hello number $num")
-        }
-        viewModelScope.launch {
-            channel.send("Hello number A $num")
-        }
+        viewModelScope.launch { broadcastChannel.send("Hello number $num") }
+        viewModelScope.launch { channel.send("Hello number A $num") }
     }
 }
 //endregion

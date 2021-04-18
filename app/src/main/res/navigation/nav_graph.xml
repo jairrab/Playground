@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/channel_exercise">
+    app:startDestination="@id/single_event">
 
     <fragment
         android:id="@+id/state_flow_launcher"
