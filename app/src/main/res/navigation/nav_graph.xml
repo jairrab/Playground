@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/single_event">
+    app:startDestination="@id/channel_exercise">
 
     <fragment
         android:id="@+id/state_flow_launcher"
@@ -63,5 +63,11 @@
         android:name="com.example.temp.fragments.singleevent.SingleEventExercise"
         android:label="Pattern Exercise"
         tools:layout="@layout/patterns_exercise" />
+
+    <fragment
+        android:id="@+id/channel_exercise"
+        android:name="com.example.temp.fragments.channels.ChannelExercise"
+        android:label="Channel Exercise"
+        tools:layout="@layout/channel_exercise" />
 
 </navigation>
