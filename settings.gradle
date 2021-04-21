@@ -1,6 +1,6 @@
 include ':app'
-rootProject.name = "Temp"
+rootProject.name = "Playground"
 
-include ':androidUtilities'
-project(':androidUtilities').projectDir = new File(settingsDir, '../androidUtilities/androidUtilities/')
+//include ':androidUtilities'
+//project(':androidUtilities').projectDir = new File(settingsDir, '../androidUtilities/androidUtilities/')
 include ':KotlinLibPlayground'

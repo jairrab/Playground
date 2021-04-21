@@ -60,7 +60,9 @@ dependencies {
 
     implementation "androidx.multidex:multidex:2.0.1"
 
-    implementation project(':androidUtilities')
+    //implementation project(':androidUtilities')
+    implementation 'com.github.jairrab:AndroidUtilities:2.6.0'
+
     implementation 'com.github.jairrab:viewBindingUtility:1.0.1'
 
     implementation "com.jakewharton.timber:timber:4.7.1"
