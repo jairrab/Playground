@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/single_event">
+    app:startDestination="@id/process_death_sender">
 
     <fragment
         android:id="@+id/state_flow_launcher"
@@ -44,6 +44,27 @@
             app:argType="com.example.temp.fragments.safeargs.ParcelData1"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/process_death_sender"
+        android:name="com.example.temp.fragments.processdeath.ProcessDeathTestSender"
+        android:label="HomeView"
+        tools:layout="@layout/process_death_sender">
+        <action
+            android:id="@+id/action_process_death_sender_to_process_death_receiver"
+            app:destination="@id/process_death_receiver" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/process_death_receiver"
+        android:name="com.example.temp.fragments.processdeath.ProcessDeathTestReceiver"
+        android:label="OtherView"
+        tools:layout="@layout/process_death_receiver">
+        <argument
+            android:name="data_1"
+            android:defaultValue="Tree"
+            app:argType="string" />
     </fragment>
 
     <fragment
