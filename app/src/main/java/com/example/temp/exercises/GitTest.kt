@@ -5,6 +5,7 @@ class GitTest {
         //some comments
         //additional comment
         //apple 1
+        //apple 2
     }
 
     fun test2() {
