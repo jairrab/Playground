@@ -10,4 +10,8 @@ class GitTest {
     fun test2() {
 
     }
+
+    fun test3() {
+
+    }
 }
